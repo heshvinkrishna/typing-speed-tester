@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Typing test</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <h1>Typing test</h1>
+    <p class="hint" id="hint">Click the text and start typing. The 60-second timer begins on your first keypress.</p>
+
+    <section class="stats" aria-label="Live results">
+      <div class="card" id="timeCard">
+        <span class="value" id="time">60</span>
+        <span class="label">Time remaining</span>
+      </div>
+      <div class="card">
+        <span class="value" id="mistakes">0</span>
+        <span class="label">Mistakes</span>
+      </div>
+      <div class="card">
+        <span class="value" id="wpm">0</span>
+        <span class="label">Net WPM</span>
+      </div>
+      <div class="card">
+        <span class="value" id="accuracy">100%</span>
+        <span class="label">Accuracy</span>
+      </div>
+    </section>
+
+    <section class="typing" id="typing">
+      <div class="quote" id="quote" aria-label="Text to type"></div>
+      <textarea id="input" aria-label="Type the text shown above"
+        autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
+    </section>
+
+    <button id="restart" type="button">Restart</button>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>

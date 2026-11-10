@@ -1,0 +1,130 @@
+:root {
+  --bg: #ffffff;
+  --surface: #f8f9fa;
+  --border: #dadce0;
+  --text: #202124;
+  --muted: #5f6368;
+  --pending: #80868b;
+  --blue: #1a73e8;
+  --blue-hover: #1765cc;
+  --green: #188038;
+  --green-bg: rgba(24, 128, 56, 0.08);
+  --red: #d93025;
+  --red-bg: rgba(217, 48, 37, 0.16);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Google Sans", Roboto, "Segoe UI", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 48px 20px;
+}
+
+.app { width: 100%; max-width: 820px; }
+
+h1 { margin: 0 0 8px; font-size: 28px; font-weight: 400; }
+.hint { margin: 0 0 28px; color: var(--muted); font-size: 14px; }
+
+/* Telemetry cards */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.value { font-size: 32px; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.label { font-size: 13px; color: var(--muted); }
+.card.low .value { color: var(--red); }
+
+/* Typing area */
+.typing {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.typing:focus-within {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 1px var(--blue);
+}
+.typing.done { background: var(--surface); }
+
+.quote {
+  font-family: "Roboto Mono", "SF Mono", Consolas, "Courier New", monospace;
+  font-size: 22px;
+  line-height: 2;
+  white-space: pre-wrap;
+  color: var(--pending);
+  user-select: none;
+}
+.word { display: inline-block; white-space: nowrap; }
+
+.char { border-radius: 3px; position: relative; }
+.char.correct { color: var(--green); background: var(--green-bg); }
+.char.incorrect { color: var(--red); background: var(--red-bg); }
+
+/* Blinking caret on the active character */
+.char.current::before {
+  content: "";
+  position: absolute;
+  left: -1px;
+  top: 12%;
+  height: 76%;
+  width: 2px;
+  background: var(--blue);
+  animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Transparent textarea that captures keystrokes */
+#input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  resize: none;
+  border: 0;
+  cursor: text;
+}
+
+button {
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  background: var(--blue);
+  border: 0;
+  border-radius: 4px;
+  padding: 10px 24px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+button:hover { background: var(--blue-hover); }
+button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+@media (max-width: 640px) {
+  .stats { grid-template-columns: repeat(2, 1fr); }
+  .quote { font-size: 18px; }
+  .typing { padding: 20px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .char.current::before { animation: none; }
+}
